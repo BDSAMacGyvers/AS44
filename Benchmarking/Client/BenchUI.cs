@@ -36,19 +36,30 @@ namespace Client
         {
             using (Service1Client client = new Service1Client())
             {
-                if (nameBox.Text.Length == 0) label7.Text = "Error";
+                if (nameBox.Text.Length == 0)
+                {
+                    label7.Text = "Error";
+                    return;
+                }
+                label7.Text = "Submitting";
                 bool status = client.ReceiveJob(int.Parse(CpuBox.Text), int.Parse(RuntimeBox.Text), nameBox.Text);
                 if (status) label7.Text = "Succes";
-                reFresh();
+                
             }
         }
 
         private void reFresh()
         {
-            listBox1.Items.Clear(); 
+            listBox1.Items.Clear();
+            progressBar.Visible = true;
+            progressBar.Value = 0;
+            progressBar.Increment(50);
             using (Service1Client client = new Service1Client())
             {
                 listBox1.Items.AddRange(client.GetJobsList(nameBox.Text));
+                progressBar.Increment(50);
+                if (listBox1.Items.Count == 0) listBox1.Items.Add("No jobs found on server.");
+                
                 listBox1.Refresh();
             }
              
@@ -59,6 +70,17 @@ namespace Client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new BenchUI());
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (nameBox.Text.Length == 0)
+            {
+                listBox1.Items.Clear();
+                listBox1.Items.Add("Please enter owner name!");
+                return;
+            }
+            reFresh();
         }
 
       
