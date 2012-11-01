@@ -48,6 +48,7 @@ namespace Client
                 label7.Text = "Submitting";
                 bool status = client.ReceiveJob(int.Parse(CpuBox.Text), int.Parse(RuntimeBox.Text), nameBox.Text);
                 if (status) label7.Text = "Succes";
+                else label7.Text = "Error"; 
 
             }
         }

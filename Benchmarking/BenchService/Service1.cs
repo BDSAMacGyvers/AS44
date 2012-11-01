@@ -21,12 +21,19 @@ namespace BenchService
 
         public bool ReceiveJob(int cpus, int duration, string ownername)
         {
-            Job job = new Job((string[] arg) => { foreach (string s in arg) { } return ""; }, new Owner(ownername), cpus, duration);
-            Bench.Bench.BS.Submit(job);
+            try
+            {
+                Job job = new Job((string[] arg) => { foreach (string s in arg) { } return ""; }, new Owner(ownername), cpus, duration);
+                Bench.Bench.BS.Submit(job);
 
-            Task task = Task.Factory.StartNew(()=>Bench.Bench.BS.ExecuteAll());
+                Task task = Task.Factory.StartNew(() => Bench.Bench.BS.ExecuteAll());
 
-            return true;
+                return true;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                return false;
+            }
         }
 
         public String[] GetJobsList(String ownername)
