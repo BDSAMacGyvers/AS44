@@ -23,28 +23,32 @@ namespace Client
         {
             using (Service1Client client = new Service1Client())
             {
-                label2.Text ="Requesting status";
+                label2.Text = "Requesting status";
                 int status = client.RequestStatus();
-                label2.Text = ""+status+ " Cores available";
-               
+                label2.Text = "" + status + " Cores available";
+
             }
         }
 
-      
+
 
         private void button2_Click(object sender, EventArgs e)
         {
             using (Service1Client client = new Service1Client())
             {
-                if (nameBox.Text.Length == 0)
+                if (nameBox.Text.Length == 0 || CpuBox.Text.Length == 0 || RuntimeBox.Text.Length == 0)
                 {
                     label7.Text = "Error";
                     return;
                 }
+               
+                
+
+                
                 label7.Text = "Submitting";
                 bool status = client.ReceiveJob(int.Parse(CpuBox.Text), int.Parse(RuntimeBox.Text), nameBox.Text);
                 if (status) label7.Text = "Succes";
-                
+
             }
         }
 
@@ -59,10 +63,10 @@ namespace Client
                 listBox1.Items.AddRange(client.GetJobsList(nameBox.Text));
                 progressBar.Increment(50);
                 if (listBox1.Items.Count == 0) listBox1.Items.Add("No jobs found on server.");
-                
+
                 listBox1.Refresh();
             }
-             
+
         }
 
         public static void Main(String[] args)
@@ -83,6 +87,10 @@ namespace Client
             reFresh();
         }
 
+
+    }
+
+
       
     }
-}
+

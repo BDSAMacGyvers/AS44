@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Diagnostics;
 
 
 namespace SchedulingBenchmarking
@@ -43,7 +44,7 @@ namespace SchedulingBenchmarking
 
             // get the logger to subscribe to BenchmarkSystem
             system.StateChanged += Logger.OnStateChanged;
-            
+            /*
             Job job1 = new Job((string[] arg) => { foreach (string s in arg) { Console.Out.WriteLine(s); } return ""; }, new Owner("owner1"), 2, 45);
             Job job2 = new Job((string[] arg) => { foreach (string s in arg) { Console.Out.WriteLine(s); } return ""; }, new Owner("owner2"), 2, 3);
             Job job3 = new Job((string[] arg) => { foreach (string s in arg) { Console.Out.WriteLine(s); } return ""; }, new Owner("owner3"), 2, 200);
@@ -69,10 +70,15 @@ namespace SchedulingBenchmarking
             system.Submit(job11);
             system.Submit(job12);
             
+            Job job1 = new Job((string[] arg) => { foreach (string s in arg) { Console.Out.WriteLine(s); } return ""; }, new Owner("owner1"), 2, 30000);
+            Job job2 = new Job((string[] arg) => { foreach (string s in arg) { Console.Out.WriteLine(s); } return ""; }, new Owner("owner2"), 2, 3);
+            system.Submit(job1);
+            system.Submit(job2);
+            */
             
-            Simulator sim = new Simulator(system.scheduler);
+            //Simulator sim = new Simulator(system.scheduler);
 
-            Task.Factory.StartNew(()=>sim.run());
+            //Task.Factory.StartNew(()=>sim.run());
 
             system.ExecuteAll();           
 
@@ -104,7 +110,7 @@ namespace SchedulingBenchmarking
 
             // start job
             changeState(job, State.Running);
-
+            Console.WriteLine("sending job to processing" + job);
             String result = job.Process(
                 new string[] { "Processing job with id " + job.jobId + " owner: " + job.Owner.Name }
                 );
@@ -135,7 +141,6 @@ namespace SchedulingBenchmarking
                         Thread.Sleep(100);
 
                     Console.WriteLine("Popped " + job);
-
                     Task<string> task = Task.Factory.StartNew<string>(()=>ExecuteJob(job));
                 }    
         }
@@ -143,6 +148,7 @@ namespace SchedulingBenchmarking
         public void changeState(Job job, State state)
         {
             job.State = state;
+            Console.WriteLine("changed state for job: "+ job + "To state   " + state);
             fireEvent(new StateChangedEventArgs() { State = state, Job = job });
             updateStatus(job);
         }

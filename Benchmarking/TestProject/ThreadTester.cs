@@ -47,25 +47,25 @@ namespace SchedulingBenchmarking
 
             BenchmarkSystem Bs = new BenchmarkSystem();
             //jobs that needs in all 27 cpus, should execute with no problems.
-            Job job1 = new Job((string[] arg) => { return arg.Length.ToString(); }, new Owner("morten12"), 9, 10000);
-            Job job2 = new Job((string[] arg) => { return arg.Length.ToString(); }, new Owner("morten22"), 9, 10000);
-            Job job3 = new Job((string[] arg) => { return arg.Length.ToString(); }, new Owner("morten32"), 9, 10000);
+            Job job1 = new Job((string[] arg) => { return arg.Length.ToString(); }, new Owner("morten12"), 9, 20000);
+            Job job2 = new Job((string[] arg) => { return arg.Length.ToString(); }, new Owner("morten22"), 9, 20000);
+            Job job3 = new Job((string[] arg) => { return arg.Length.ToString(); }, new Owner("morten32"), 9, 20000);
             Bs.Submit(job1);
             Bs.Submit(job2);
             Bs.Submit(job3);
             //this job requires too many cores and should therefore not run immediately
-            Job job4 = new Job((string[] arg) => { return arg.Length.ToString(); }, new Owner("morten4"), 9, 10000);
+            Job job4 = new Job((string[] arg) => { return arg.Length.ToString(); }, new Owner("morten4"), 9, 20000);
             Bs.Submit(job4);
             Task task = Task.Factory.StartNew(() => Bs.ExecuteAll());
 
-            Thread.Sleep(1000);
+            Thread.Sleep(10000);
             Assert.AreEqual(State.Running, job1.State);
             Assert.AreEqual(State.Running, job2.State);
             Assert.AreEqual(State.Running, job3.State);
             // this job should not be running as there aren't enough cores for it to run.
             Assert.AreEqual(State.Submitted, job4.State);
             //it should run after the cores become available
-            Thread.Sleep(12000);
+            Thread.Sleep(10000);
             Assert.AreEqual(State.Running, job4.State);
 
 

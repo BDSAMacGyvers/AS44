@@ -32,8 +32,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.nameBox = new System.Windows.Forms.TextBox();
-            this.RuntimeBox = new System.Windows.Forms.TextBox();
-            this.CpuBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -43,6 +41,8 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.button3 = new System.Windows.Forms.Button();
             this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.CpuBox = new System.Windows.Forms.MaskedTextBox();
+            this.RuntimeBox = new System.Windows.Forms.MaskedTextBox();
             this.SuspendLayout();
             // 
             // button1
@@ -80,20 +80,6 @@
             this.nameBox.Name = "nameBox";
             this.nameBox.Size = new System.Drawing.Size(332, 31);
             this.nameBox.TabIndex = 3;
-            // 
-            // RuntimeBox
-            // 
-            this.RuntimeBox.Location = new System.Drawing.Point(256, 275);
-            this.RuntimeBox.Name = "RuntimeBox";
-            this.RuntimeBox.Size = new System.Drawing.Size(332, 31);
-            this.RuntimeBox.TabIndex = 4;
-            // 
-            // CpuBox
-            // 
-            this.CpuBox.Location = new System.Drawing.Point(256, 333);
-            this.CpuBox.Name = "CpuBox";
-            this.CpuBox.Size = new System.Drawing.Size(332, 31);
-            this.CpuBox.TabIndex = 5;
             // 
             // label3
             // 
@@ -157,12 +143,12 @@
             this.listBox1.ItemHeight = 25;
             this.listBox1.Location = new System.Drawing.Point(48, 566);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(692, 254);
+            this.listBox1.Size = new System.Drawing.Size(692, 429);
             this.listBox1.TabIndex = 12;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(48, 826);
+            this.button3.Location = new System.Drawing.Point(48, 1033);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(172, 49);
             this.button3.TabIndex = 13;
@@ -173,19 +159,40 @@
             // progressBar
             // 
             this.progressBar.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.progressBar.Location = new System.Drawing.Point(242, 839);
+            this.progressBar.Location = new System.Drawing.Point(236, 1050);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(118, 23);
             this.progressBar.TabIndex = 14;
             this.progressBar.Visible = false;
             // 
+            // CpuBox
+            // 
+            this.CpuBox.Location = new System.Drawing.Point(256, 333);
+            this.CpuBox.Mask = "0";
+            this.CpuBox.Name = "CpuBox";
+            this.CpuBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.CpuBox.Size = new System.Drawing.Size(70, 31);
+            this.CpuBox.TabIndex = 15;
+            // 
+            // RuntimeBox
+            // 
+            this.RuntimeBox.Location = new System.Drawing.Point(256, 274);
+            this.RuntimeBox.Mask = "0000";
+            this.RuntimeBox.Name = "RuntimeBox";
+            this.RuntimeBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RuntimeBox.Size = new System.Drawing.Size(70, 31);
+            this.RuntimeBox.TabIndex = 16;
+            // 
             // BenchUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackgroundImage = global::Client.Properties.Resources.macgyver_mushon_com;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(805, 1024);
+            this.ClientSize = new System.Drawing.Size(843, 1126);
+            this.Controls.Add(this.RuntimeBox);
+            this.Controls.Add(this.CpuBox);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.listBox1);
@@ -195,8 +202,6 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.CpuBox);
-            this.Controls.Add(this.RuntimeBox);
             this.Controls.Add(this.nameBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -215,8 +220,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox nameBox;
-        private System.Windows.Forms.TextBox RuntimeBox;
-        private System.Windows.Forms.TextBox CpuBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -226,5 +229,7 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.MaskedTextBox CpuBox;
+        private System.Windows.Forms.MaskedTextBox RuntimeBox;
     }
 }
